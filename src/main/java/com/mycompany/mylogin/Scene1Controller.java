@@ -9,10 +9,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import static javafx.scene.input.KeyCode.DOWN;
 import static javafx.scene.input.KeyCode.LEFT;
 import static javafx.scene.input.KeyCode.RIGHT;
-import static javafx.scene.input.KeyCode.UP;
 
 public class Scene1Controller {
     @FXML
@@ -22,17 +20,27 @@ public class Scene1Controller {
     private Stage stage;
     private Scene scene;
     private Parent root;
+    private Cliente cliente;
     
     public void login(ActionEvent e){
         try{
-            Cliente cliente = new Cliente();
+            cliente = new Cliente();
             String username = nameTextField.getText();
             String password = passwordTextField.getText();
             
             Cliente.username = username;
             Cliente.password = password;
             
-            //Cliente.initializeClient();
+            Cliente.initializeClient();
+            
+            /*if(Cliente.username != "" && Cliente.password != ""){
+                    Cliente.initializeClient();   
+                }else{
+                    nameTextField.setText("");
+                    passwordTextField.setText("");
+                }*/
+            
+            Cliente.initializeChat(Cliente.dis, Cliente.dos);
             
             stage = (Stage)((Node)e.getSource()).getScene().getWindow();
             
@@ -48,8 +56,9 @@ public class Scene1Controller {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("Scene2.fxml"));
         root = loader.load();
         
-        
         Scene2Controller scene2Controller = loader.getController();
+        
+        scene2Controller.getPosition(cliente);
         
         //scene2Controller.displayName(username, Cliente.dis, Cliente.dos);
 
@@ -80,5 +89,4 @@ public class Scene1Controller {
         stage.setScene(scene);
         stage.show();
     }
-    
 }
