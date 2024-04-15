@@ -48,6 +48,7 @@ public class Scene1Controller {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("Scene2.fxml"));
         root = loader.load();
         
+        
         Scene2Controller scene2Controller = loader.getController();
         
         //scene2Controller.displayName(username, Cliente.dis, Cliente.dos);
