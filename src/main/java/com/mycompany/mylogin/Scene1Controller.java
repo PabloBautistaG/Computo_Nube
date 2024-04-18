@@ -58,8 +58,10 @@ public class Scene1Controller {
         
         Scene2Controller scene2Controller = loader.getController();
         
-        scene2Controller.getPosition(cliente);
+        Cliente.scene2 = scene2Controller;
         
+        scene2Controller.getPosition(cliente);
+                
         //scene2Controller.displayName(username, Cliente.dis, Cliente.dos);
 
         scene = new Scene(root);

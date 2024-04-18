@@ -2,7 +2,6 @@ package com.mycompany.mylogin;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
-import java.io.IOException;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.util.Scanner;
@@ -30,9 +29,7 @@ class Sender extends Thread {
                     }
                     break;
                 }
-                if (toSend.equals("Exit")) {
-                    
-                }
+                
             }
         } catch (Exception e) {
             System.out.println("Error al enviar el mensaje");
@@ -41,7 +38,7 @@ class Sender extends Thread {
 }
 
 class Listener extends Thread {
-
+    public String received;
     final DataInputStream dis;
 
     public Listener(DataInputStream dis) {
@@ -49,11 +46,17 @@ class Listener extends Thread {
     }
 
     public void run() {
-        String received;
         try {
             while (true) {
                 received = dis.readUTF();
                 System.out.println(received);
+                if (received.equals("VAS")) {
+                    Thread.sleep(1000);
+                }
+                if (received.contains("JUG@RYA")) {
+                    System.out.println("Nuevo jugador");
+                    Cliente.scene2.addTank();
+                }
             }
         } catch (Exception e) {
             System.out.println(e);
@@ -70,10 +73,12 @@ public class Cliente extends Thread {
     public static String password;
     public static boolean sesion;
     public static String validUser = "";
+    public static Boolean newUser = false;
+    public static Scene2Controller scene2;
     
     public static void initializeClient(){
         try {
-            InetAddress ip = InetAddress.getByName("10.103.160.205");
+            InetAddress ip = InetAddress.getByName("192.168.1.10"); // 10.103.160.205 -> Servidor en la nube
             socket = new Socket(ip, 2555);
             
             dis = new DataInputStream(socket.getInputStream());
