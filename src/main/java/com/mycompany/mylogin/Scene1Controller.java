@@ -74,6 +74,8 @@ public class Scene1Controller {
                 case LEFT:
                     scene2Controller.rotateLeft();
                     break;
+                case SPACE:
+                    scene2Controller.shot();
             }
         });
 
