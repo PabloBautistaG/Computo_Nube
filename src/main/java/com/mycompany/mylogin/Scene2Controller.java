@@ -2,12 +2,11 @@ package com.mycompany.mylogin;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
-import java.io.File;
+
 import java.io.FileNotFoundException;
 import javafx.animation.RotateTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
@@ -69,7 +68,7 @@ public class Scene2Controller {
         {
            //animacion del tanque
            //tank.setY(tank.getY() +10);
-           translateT.setByY(1280f);
+           translateT.setByY(50f);
            translateT.setCycleCount(1);
            translateT.setAutoReverse(true);
            translateT.play();
@@ -177,7 +176,7 @@ public class Scene2Controller {
     }
     
     public void shot(){
-        TranslateTransition tt = new TranslateTransition(Duration.millis(1000),rect1);        
+        TranslateTransition tt = new TranslateTransition(Duration.millis(1000),rect1);
         
         switch(dir)
         {
@@ -188,7 +187,13 @@ public class Scene2Controller {
                     tt.setCycleCount(1);
                     tt.setAutoReverse(true);
                     tt.play();
-                
+                    
+                    
+                    
+                    //verificamos si sale de la pantalla
+                    if(rect1.getX() + 100f >= 700){
+                        rect1=null;
+                    }
                 
                 break;
                 
